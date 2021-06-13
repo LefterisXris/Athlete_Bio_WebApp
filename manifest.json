@@ -1,0 +1,20 @@
+{
+  "short_name": "Athlete's Bio",
+  "name": "Athlete's Personal Web-Application",
+  "description": "A Progressive Web Application that can be used by any athlete as his personal bio WebApp!",
+  "display": "standalone",
+  "start_url": "/",
+  "background_color": "white",
+  "icons": [
+    {
+      "src": "/img/sports.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/sports-wide.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
