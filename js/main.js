@@ -73,10 +73,11 @@ function createTableRow(dataArr, rowElement) {
 
 /**
  * Creates an HTML table row (tr) containing all the header data (th) of the provided array
- * @param headerDataArr The array with the header data
+ * @param headerDataKey The key of the local storage json item, which is an array with the header data
  * @returns {HTMLTableRowElement} the generated html row (tr element with th data)
  */
-function createTableHeaderRow(headerDataArr) {
+function createTableHeaderRow(headerDataKey) {
+    const headerDataArr = JSON.parse(localStorage.getItem(headerDataKey));
     const headerRow = createTableRow(headerDataArr[0], 'th');
 
     // Add the context menu listener for show/hide columns functionality
@@ -142,6 +143,9 @@ const statsDataArray = [
     ['Total Service Points Won', '68%']
 ];
 
+localStorage.setItem('statsHeaders', JSON.stringify(statsHeaders));
+localStorage.setItem('statsDataArray', JSON.stringify(statsDataArray));
+
 /**
  * Populates the table related with Statistics
  */
@@ -151,7 +155,7 @@ function populateStatsTable() {
 
     // Populate headers
     const statsHead = document.createElement('thead');
-    statsHead.appendChild(createTableHeaderRow(statsHeaders));
+    statsHead.appendChild(createTableHeaderRow('statsHeaders'));
     statsTable.appendChild(statsHead);
 
     // Add the left click listener for sorting functionality
@@ -183,10 +187,11 @@ function popStatTable(statsTable) {
         statsBody.appendChild(row);
     }
     statsTable.appendChild(statsBody);
-    applyShowHide(statsTable.id, statsHeaders);
+    applyShowHide(statsTable.id, 'statsHeaders');
 }
 
-function applyShowHide(tableId, headerArray) {
+function applyShowHide(tableId, headerKey) {
+    const headerArray = JSON.parse(localStorage.getItem(headerKey));
     for (let i = 0; i < headerArray[1].length; i++) {
         if (headerArray[1][i])
             showColumn(tableId, i);
@@ -221,6 +226,10 @@ const activitiesPreviewData = [ // image name, tournament description
     ["marseille-2019.svg", "Marseille France, February 2019"],
     ["stockholm-2018.svg", "Stockholm Sweden, October 2018"]
 ];
+
+localStorage.setItem('activitiesHeaders', JSON.stringify(activitiesHeaders));
+localStorage.setItem('activitiesDataArray', JSON.stringify(activitiesDataArray));
+localStorage.setItem('activitiesPreviewData', JSON.stringify(activitiesPreviewData));
 
 /**
  * Prepares the HTML element that should be placed on the 'preview' cell of the activities data.
@@ -269,7 +278,7 @@ function populateActivitiesTable() {
 
     // Populate headers
     const activitiesHead = document.createElement('thead');
-    activitiesHead.appendChild(createTableHeaderRow(activitiesHeaders));
+    activitiesHead.appendChild(createTableHeaderRow('activitiesHeaders'));
     activitiesTable.appendChild(activitiesHead);
 
     const origData = clone(activitiesDataArray);
@@ -305,7 +314,7 @@ function popActivityData(activitiesTable) {
         activitiesBody.appendChild(row);
     }
     activitiesTable.appendChild(activitiesBody);
-    applyShowHide(activitiesTable.id, activitiesHeaders);
+    applyShowHide(activitiesTable.id, 'activitiesHeaders');
 }
 
 /* *************
@@ -352,6 +361,9 @@ const evolutionDataArray = [
     ['2013 4th Qtr.', '1985']
 
 ];
+
+localStorage.setItem('evolutionHeaders', JSON.stringify(evolutionHeaders));
+localStorage.setItem('evolutionDataArray', JSON.stringify(evolutionDataArray));
 
 /**
  * Prepares the HTML element that should be placed on the 'ranking' cell of the evolution data.
@@ -409,7 +421,7 @@ function populateEvolutionTable() {
 
     // Populate headers
     const evolutionHead = document.createElement('thead');
-    evolutionHead.appendChild(createTableHeaderRow(evolutionHeaders));
+    evolutionHead.appendChild(createTableHeaderRow('evolutionHeaders'));
     evolutionTable.appendChild(evolutionHead);
 
     // Add the left click listener for sorting functionality
@@ -443,7 +455,7 @@ function popEvolutionData(evolutionTable) {
         evolutionBody.appendChild(row);
     }
     evolutionTable.appendChild(evolutionBody);
-    applyShowHide(evolutionTable.id, evolutionHeaders);
+    applyShowHide(evolutionTable.id, 'evolutionHeaders');
 }
 
 // Show Hide functionality
@@ -624,3 +636,21 @@ Done in 2nd iteration:
  - Show/Hide: Context menu on all table headers with options (checkboxes) to show/hide available columns
  - Sort: Sorting options on left click on columns. Toggles asc-desc-none mode
 */
+
+/*
+TODO in 3rd iteration:
+ - PWA (manifest + sw)
+ - Dynamic data loading (check for json import/export)
+    - Start with a blank page
+    - Prompt to insert athlete's name, pic, country-pic, height, weight, birth, rank, win rate and game style
+    - Prompt to add text for bio (should be able to load from txt file)
+    - Prompt to add statistics data
+    - Prompt to add tournament titles data (+ the hover image)
+        - Maybe implement dynamic tables? So to add any column?
+    - Prompt to add ranking evolution data
+    - Prompt to add links for fb, twitter, youtube and insta (optional all)
+ - Local storage (all the above data)
+ - Filtering options
+    - Filter tournaments in Balkan
+    - Filter on ranking: show neutral/negative/positive progress quarters
+ */
