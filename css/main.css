@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+
 @font-face {
   font-family: OpenSansCondensed;
   src: url("../fonts/OpenSansCondensed-LightItalic.ttf");
 }
+
 
 /**************
 *** Generic ***
@@ -37,6 +40,14 @@ table thead tr {
   height: 60px;
   background: #36304a;
   color: white;
+}
+
+table th[sortBy=asc]:before {
+  content: "↑ ";
+}
+
+table th[sortBy=desc]:before {
+  content: "↓ "
 }
 
 table tr:nth-child(even) {
@@ -196,6 +207,10 @@ header a:hover {
   max-width: 430px;
 }
 
+#bio p {
+  font-family: Nunito, Helvetica, sans-serif;
+}
+
 /*****************
 *** Statistics ***
 ******************/
@@ -204,6 +219,10 @@ header a:hover {
 
 #stats-table {
   table-layout: fixed;
+}
+
+#stats-table tbody td {
+  text-align: center;
 }
 
 
@@ -335,7 +354,39 @@ div.progress {
   color: white;
 }
 
+#ctxMenu {
+  position: fixed;
+  z-index: 10;
+  visibility: hidden;
 
+  padding: 5px;
+  min-width: 100px;
+  background: #fff;
+  color: #555;
+  border: 1px solid #C6C6C6;
+}
+
+#ctxMenu div {
+  color: #555;
+  position: relative;
+}
+
+#ctxMenu div:hover {
+  color: #fff;
+  background: #3879D9;
+}
+
+.resetButton {
+  border-radius: 10px;
+  background-color: #36304a;
+  color: white;
+  padding: 15px 25px;
+}
+
+.resetButton:hover {
+  background-color: #7fb1bf;
+  font-style: italic;
+}
 
 @media only screen and (max-width: 1320px) {
   #bio-flexbox div:nth-child(3) {

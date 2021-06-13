@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+  <script src="js/main.js" defer></script>
 </head>
 
 <body>
@@ -138,158 +139,15 @@
 <div id="stats">
   <h2>Statistics</h2>
   <table id="stats-table">
-    <thead>
-    <tr>
-      <th colspan="2">Statistics</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>Aces</td>
-      <td>1,616</td>
-    </tr>
-    <tr>
-      <td>Double Faults</td>
-      <td>529</td>
-    </tr>
-    <tr>
-      <td>1st Serve</td>
-      <td>62%</td>
-    </tr>
-    <tr>
-      <td>1st Serve Points Won</td>
-      <td>76%</td>
-    </tr>
-    <tr>
-      <td>2nd Serve Points Won</td>
-      <td>54%</td>
-    </tr>
-    <tr>
-      <td>Break Points Faced</td>
-      <td>1,190</td>
-    </tr>
-    <tr>
-      <td>Break Points Saved</td>
-      <td>64%</td>
-    </tr>
-    <tr>
-      <td>Service Games Played</td>
-      <td>3,060</td>
-    </tr>
-    <tr>
-      <td>Service Games Won</td>
-      <td>86%</td>
-    </tr>
-    <tr>
-      <td>Total Service Points Won</td>
-      <td>68%</td>
-    </tr>
-    </tbody>
   </table>
 </div>
 
 <!-- Activity -->
 <hr>
 <div id="activity">
-  <h2>Tournament Titles</h2>
+  <h2 id="btn">Tournament Titles</h2>
   <div id="activity-table-wrapper">
     <table id="activity-table">
-      <thead>
-      <tr>
-        <th>Tournament</th>
-        <th>Location</th>
-        <th>Participants</th>
-        <th>Games</th>
-        <th>W-L</th>
-        <th>Preview</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>ATP Masters</td>
-        <td>Monte Carlo, Apr-2021</td>
-        <td>56</td>
-        <td>5</td>
-        <td>5/0</td>
-        <td>
-          <img class="preview" src="img/vs-matches.png" alt="vs">
-          <div class="preview-more">
-            <img src="img/tournaments/monte-carlo-2021.svg" alt="monte-carlo-2021">
-            <div class="preview-desc">ATP Masters, Monte Carlo, April 2021</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Open 13 Provence</td>
-        <td>Marseille, Feb-2020</td>
-        <td>28</td>
-        <td>4</td>
-        <td>4/0</td>
-        <td>
-          <img class="preview" src="img/vs-matches.png" alt="vs">
-          <div class="preview-more">
-            <img src="img/tournaments/marseille-2020.svg" alt="marseille-2020">
-            <div class="preview-desc">Open 13 Provence, Marseille, February 2020</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Nitto ATP Finals</td>
-        <td>London, Nov-2018</td>
-        <td>8</td>
-        <td>5</td>
-        <td>4/1</td>
-        <td>
-          <img class="preview" src="img/vs-matches.png" alt="vs">
-          <div class="preview-more">
-            <img src="img/tournaments/london-2020.svg" alt="london-2020">
-            <div class="preview-desc">Nitto ATP Finals, London, November 2019</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Estoril</td>
-        <td>Portugal, Apr-2019</td>
-        <td>28</td>
-        <td>4</td>
-        <td>4/0</td>
-        <td>
-          <img class="preview" src="img/vs-matches.png" alt="vs">
-          <div class="preview-more">
-            <img src="img/tournaments/estoril-2020.svg" alt="estoril-2020">
-            <div class="preview-desc">Estoril Portugal, April 2019</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Marseille</td>
-        <td>France, Feb-2019</td>
-        <td>28</td>
-        <td>4</td>
-        <td>4/0</td>
-        <td>
-          <img class="preview" src="img/vs-matches.png" alt="vs">
-          <div class="preview-more">
-            <img src="img/tournaments/marseille-2019.svg" alt="marseille-2019">
-            <div class="preview-desc">Marseille France, February 2019</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Stockholm</td>
-        <td>Sweden, Oct-2018</td>
-        <td>28</td>
-        <td>4</td>
-        <td>4/0</td>
-        <td>
-          <img class="preview" src="img/vs-matches.png" alt="vs">
-          <div class="preview-more">
-            <img src="img/tournaments/stockholm-2018.svg" alt="stockholm-2018">
-            <div class="preview-desc">Stockholm Sweden, October 2018</div>
-          </div>
-        </td>
-      </tr>
-      </tbody>
     </table>
   </div>
 </div>
@@ -299,225 +157,6 @@
 <div id="evolution">
   <h2>Ranking Evolution</h2>
   <table id="evolution-table">
-    <thead>
-    <tr>
-      <th>Date (Quarter)</th>
-      <th>Ranking</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>2021 2nd Qtr.</td>
-      <td>
-        <div class="up">5</div>
-        <div class="progress">(+ 1)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2021 1st Qtr.</td>
-      <td>
-        <div class="same">6</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2020 4th Qtr.</td>
-      <td>
-        <div class="same">6</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2020 3nd Qtr.</td>
-      <td>
-        <div class="same">6</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2020 2nd Qtr.</td>
-      <td>
-        <div class="same">6</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2020 1st Qtr.</td>
-      <td>
-        <div class="same">6</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2019 4th Qtr.</td>
-      <td>
-        <div class="up">6</div>
-        <div class="progress">(+ 1)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2019 3nd Qtr.</td>
-      <td>
-        <div class="down">7</div>
-        <div class="progress">(-1)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2019 2nd Qtr.</td>
-      <td>
-        <div class="up">6</div>
-        <div class="progress">(+ 4)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2019 1st Qtr.</td>
-      <td>
-        <div class="up">10</div>
-        <div class="progress">(+ 5)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2018 4th Qtr.</td>
-      <td>
-        <div class="same">15</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2018 3nd Qtr.</td>
-      <td>
-        <div class="up">15</div>
-        <div class="progress">(+ 20)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2018 2nd Qtr.</td>
-      <td>
-        <div class="up">35</div>
-        <div class="progress">(+ 35)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2018 1st Qtr.</td>
-      <td>
-        <div class="up">70</div>
-        <div class="progress">(+ 21)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2017 4th Qtr.</td>
-      <td>
-        <div class="up">91</div>
-        <div class="progress">(+ 26)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2017 3nd Qtr.</td>
-      <td>
-        <div class="up">117</div>
-        <div class="progress">(+ 73)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2017 2nd Qtr.</td>
-      <td>
-        <div class="up">190</div>
-        <div class="progress">(+ 14)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2017 1st Qtr.</td>
-      <td>
-        <div class="up">204</div>
-        <div class="progress">(+ 6)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2016 4th Qtr.</td>
-      <td>
-        <div class="up">210</div>
-        <div class="progress">(+ 100)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2016 3nd Qtr.</td>
-      <td>
-        <div class="up">310</div>
-        <div class="progress">(+ 48)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2016 2nd Qtr.</td>
-      <td>
-        <div class="up">358</div>
-        <div class="progress">(+ 164)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2016 1st Qtr.</td>
-      <td>
-        <div class="up">522</div>
-        <div class="progress">(+ 54)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2015 4th Qtr.</td>
-      <td>
-        <div class="up">576</div>
-        <div class="progress">(+ 372)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2015 3nd Qtr.</td>
-      <td>
-        <div class="up">948</div>
-        <div class="progress">(+ 94)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2015 2nd Qtr.</td>
-      <td>
-        <div class="up">1042</div>
-        <div class="progress">(+ 75)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2015 1st Qtr.</td>
-      <td>
-        <div class="up">1117</div>
-        <div class="progress">(+ 163)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2014 4th Qtr.</td>
-      <td>
-        <div class="up">1280</div>
-        <div class="progress">(+ 429)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2014 3nd Qtr.</td>
-      <td>
-        <div class="up">1709</div>
-        <div class="progress">(+ 441)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2014 2nd Qtr.</td>
-      <td>
-        <div class="down">2150</div>
-        <div class="progress">(- 26)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2014 1st Qtr.</td>
-      <td>
-        <div class="down">2124</div>
-        <div class="progress">(- 139)</div>
-      </td>
-    </tr>
-    <tr>
-      <td>2013 4th Qtr.</td>
-      <td>
-        <div class="same">1985</div>
-      </td>
-    </tr>
-    </tbody>
-
   </table>
 </div>
 
@@ -529,6 +168,9 @@
   <a href="https://twitter.com/StefTsitsipas" class="fa fa-twitter"></a>
   <a href="https://www.youtube.com/channel/UCO5HFpRQMOBZvFoHgOneaMQ" class="fa fa-youtube"></a>
   <a href="https://www.instagram.com/stefanostsitsipas98/" class="fa fa-instagram"></a>
+</div>
+
+<div id="ctxMenu">
 </div>
 
 </body>
