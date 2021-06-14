@@ -3,7 +3,7 @@
   "name": "Athlete's Personal Web-Application",
   "description": "A Progressive Web Application that can be used by any athlete as his personal bio WebApp!",
   "display": "standalone",
-  "start_url": "/",
+  "start_url": "/Athlete_Bio_WebApp/",
   "background_color": "white",
   "icons": [
     {
