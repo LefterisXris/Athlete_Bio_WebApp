@@ -123,8 +123,60 @@ header a {
   text-decoration: none;
 }
 
+.header-right a {
+  max-height: 18px;
+}
+
+#settings-img {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+}
+
 header a:hover {
   background-color: #111;
+}
+
+.settings-header {
+  float: left;
+  overflow: hidden;
+}
+
+.settings-header .settings-header-btn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.settings-header:hover .settings-header-btn {
+  background-color: #111;
+}
+
+.settings-header-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #36304a;
+  z-index: 1;
+}
+
+.settings-header-content a {
+  float: left;
+  color: white;
+  text-decoration: none;
+}
+
+.settings-header-content a:hover {
+  background-color: #111;
+}
+
+.settings-header:hover .settings-header-content {
+  display: block;
 }
 
 /***************

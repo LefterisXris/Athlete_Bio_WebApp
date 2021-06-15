@@ -2,128 +2,134 @@
 <html lang="en">
 
 <head>
-  <title>Stefanos Tsitsipas</title>
-  <meta charset="utf-8">
-  <meta name="author" content="Eleftherios Chrysochoidis - mai21066">
-  <meta name="description" content="Exercise on HTML CSS (UoM)">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stefanos Tsitsipas</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Eleftherios Chrysochoidis - mai21066">
+    <meta name="description" content="Exercise on HTML CSS (UoM)">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- TODO: Open Graph protocol for sharing https://ogp.me/ -->
-  <meta property="og:title" content="Exercise on HTML CSS (UoM)">
-  <meta property="og:description" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
+    <!-- TODO: Open Graph protocol for sharing https://ogp.me/ -->
+    <meta property="og:title" content="Exercise on HTML CSS (UoM)">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
 
-  <link rel="icon" type="image/ico" href="img/tennis.ico"/>
+    <link rel="icon" type="image/ico" href="img/tennis.ico"/>
 
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="manifest" href="manifest.json">
 
-  <script src="js/main.js" defer></script>
+    <script src="js/main.js" defer></script>
 </head>
 
 <body>
 
 <!-- Navigation Menu -->
 <header id="navbar">
-  <div class="header-left">
-    <a href="#" id="fullName">Stefanos Tsitsipas</a>
-  </div>
-  <div class="header-right">
-    <a href="#overview">Overview</a>
-    <a href="#bio">Bio</a>
-    <a href="#activity">Titles</a>
-    <a href="#stats">Statistics</a>
-    <a href="#evolution">Evolution</a>
-  </div>
+    <div class="header-left">
+        <a href="#" id="fullName">Stefanos Tsitsipas</a>
+    </div>
+    <div class="header-right">
+        <a href="#overview">Overview</a>
+        <a href="#bio">Bio</a>
+        <a href="#activity">Titles</a>
+        <a href="#stats">Statistics</a>
+        <a href="#evolution">Evolution</a>
+        <div class="settings-header">
+            <button class="settings-header-btn">Settings</button>
+            <div class="settings-header-content">
+                <a id="edit-data">Edit Data</a>
+                <a id="new-athlete">New Athlete</a>
+                <a id="load-data">Load From File</a>
+            </div>
+        </div>
+    </div>
 </header>
 
 <!-- Overview -->
 <div id="overview">
-  <div class="country-flag">
-    <img id="country-flag-img" src="" alt="Country flag">
-<!--    <img src="img/flag-greece.png" alt="Country flag">-->
-  </div>
-  <div class="player-photo">
-    <img id="player-img" src="" alt="Athlete's Image">
-<!--    <img src="img/stefanos-tsitsipas-transparent.png" alt="Athlete's Image">-->
-  </div>
-  <div class="player-stats">
-    <div class="info height">
-      <div class="info-key">Height:&nbsp;</div>
-      <div class="info-value" id="height"></div>
+    <div class="country-flag">
+        <img id="country-flag-img" src="" alt="Country flag">
     </div>
-    <div class="info weight">
-      <div class="info-key">Weight:&nbsp;</div>
-      <div class="info-value" id="weight"></div>
+    <div class="player-photo">
+        <img id="player-img" src="" alt="Athlete's Image">
     </div>
-    <div class="info birth">
-      <div class="info-key">Birth:&nbsp;</div>
-      <div class="info-value" id="birth"></div>
+    <div class="player-stats">
+        <div class="info height">
+            <div class="info-key">Height:&nbsp;</div>
+            <div class="info-value" id="height"></div>
+        </div>
+        <div class="info weight">
+            <div class="info-key">Weight:&nbsp;</div>
+            <div class="info-value" id="weight"></div>
+        </div>
+        <div class="info birth">
+            <div class="info-key">Birth:&nbsp;</div>
+            <div class="info-value" id="birth"></div>
+        </div>
+        <div class="info rank">
+            <div class="info-key">Rank:&nbsp;</div>
+            <div class="info-value" id="rank"></div>
+        </div>
+        <div class="info rate">
+            <div class="info-key">Win Rate:&nbsp;</div>
+            <div class="info-value" id="winRate"></div>
+        </div>
+        <div class="info style">
+            <div class="info-key">Game Style:&nbsp;</div>
+            <div class="info-value" id="gameStyle"></div>
+        </div>
     </div>
-    <div class="info rank">
-      <div class="info-key">Rank:&nbsp;</div>
-      <div class="info-value" id="rank"></div>
-    </div>
-    <div class="info rate">
-      <div class="info-key">Win Rate:&nbsp;</div>
-      <div class="info-value" id="winRate"></div>
-    </div>
-    <div class="info style">
-      <div class="info-key">Game Style:&nbsp;</div>
-      <div class="info-value" id="gameStyle"></div>
-    </div>
-  </div>
 </div>
 
 <!-- Bio -->
 <hr>
 <div id="bio">
-  <h2>Stefanos' Biography</h2>
-  <div id="bio-flexbox">
-    <div id="bio-1"></div>
-    <div id="bio-2"></div>
-    <div id="bio-3"></div>
-  </div>
-  <div class="source">Source <a href="https://www.stsitsipas.com/bio/">https://www.stsitsipas.com/bio/</a></div>
+    <h2>Stefanos' Biography</h2>
+    <div id="bio-flexbox">
+        <div id="bio-1"></div>
+        <div id="bio-2"></div>
+        <div id="bio-3"></div>
+    </div>
+    <div class="source">Source <a href="https://www.stsitsipas.com/bio/">https://www.stsitsipas.com/bio/</a></div>
 </div>
 
 <!-- Statistics -->
 <hr>
 <div id="stats">
-  <h2>Statistics</h2>
-  <table id="stats-table">
-  </table>
+    <h2>Statistics</h2>
+    <table id="stats-table">
+    </table>
 </div>
 
 <!-- Activity -->
 <hr>
 <div id="activity">
-  <h2 id="btn">Tournament Titles</h2>
-  <div id="activity-table-wrapper">
-    <table id="activity-table">
-    </table>
-  </div>
+    <h2 id="btn">Tournament Titles</h2>
+    <div id="activity-table-wrapper">
+        <table id="activity-table">
+        </table>
+    </div>
 </div>
 
 <!-- Evolution -->
 <hr>
 <div id="evolution">
-  <h2>Ranking Evolution</h2>
-  <table id="evolution-table">
-  </table>
+    <h2>Ranking Evolution</h2>
+    <table id="evolution-table">
+    </table>
 </div>
 
 <!-- Social Media -->
 <hr>
 <div class="social">
-  <h3>Stay in touch on Social Media:</h3>
-  <a id="fb-link" href="" class="fa fa-facebook"></a>
-  <a id="twitter-link" href="" class="fa fa-twitter"></a>
-  <a id="youtube-link" href="" class="fa fa-youtube"></a>
-  <a id="instagram-link" href="" class="fa fa-instagram"></a>
+    <h3>Stay in touch on Social Media:</h3>
+    <a id="fb-link" href="" class="fa fa-facebook"></a>
+    <a id="twitter-link" href="" class="fa fa-twitter"></a>
+    <a id="youtube-link" href="" class="fa fa-youtube"></a>
+    <a id="instagram-link" href="" class="fa fa-instagram"></a>
 </div>
 
 <div id="ctxMenu">

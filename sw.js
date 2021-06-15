@@ -6,6 +6,7 @@ self.addEventListener('install', function (event) {
                 '/index.html',
                 '/setup.html',
                 '/manifest.json',
+                '/stefanos.json',
                 /* Javascript */
                 '/js/main.js',
                 '/js/setup.js',

@@ -79,11 +79,10 @@ function createTableRow(dataArr, rowElement) {
 
 /**
  * Creates an HTML table row (tr) containing all the header data (th) of the provided array
- * @param headerDataKey The key of the local storage json item, which is an array with the header data
+ * @param headerDataArr The array with the header data
  * @returns {HTMLTableRowElement} the generated html row (tr element with th data)
  */
-function createTableHeaderRow(headerDataKey) {
-    const headerDataArr = JSON.parse(localStorage.getItem(headerDataKey));
+function createTableHeaderRow(headerDataArr) {
     const headerRow = createTableRow(headerDataArr[0], 'th');
 
     // Add the context menu listener for show/hide columns functionality
@@ -149,9 +148,6 @@ const statsDataArray = [
     ['Total Service Points Won', '68%']
 ];
 
-localStorage.setItem('statsHeaders', JSON.stringify(statsHeaders));
-localStorage.setItem('statsDataArray', JSON.stringify(statsDataArray));
-
 /**
  * Populates the athlete's basic info
  */
@@ -176,7 +172,7 @@ function populateBasicInfo() {
     const winRateArr = basicInfo.winRate.split('/');
     const games = parseInt(winRateArr[0]);
     const wins = parseInt(winRateArr[1]);
-    const ratio = parseFloat(100 * wins / games+'').toPrecision(2);
+    const ratio = parseFloat(100 * wins / games + '').toPrecision(2);
     document.getElementById('winRate').innerText = `${ratio}% (${basicInfo.winRate})`;
 
     document.getElementById('bio-1').innerHTML = db().biographyTexts[0];
@@ -199,7 +195,7 @@ function populateStatsTable() {
 
     // Populate headers
     const statsHead = document.createElement('thead');
-    statsHead.appendChild(createTableHeaderRow('statsHeaders'));
+    statsHead.appendChild(createTableHeaderRow(statsHeaders));
     statsTable.appendChild(statsHead);
 
     // Add the left click listener for sorting functionality
@@ -231,11 +227,10 @@ function popStatTable(statsTable) {
         statsBody.appendChild(row);
     }
     statsTable.appendChild(statsBody);
-    applyShowHide(statsTable.id, 'statsHeaders');
+    applyShowHide(statsTable.id, statsHeaders);
 }
 
-function applyShowHide(tableId, headerKey) {
-    const headerArray = JSON.parse(localStorage.getItem(headerKey));
+function applyShowHide(tableId, headerArray) {
     for (let i = 0; i < headerArray[1].length; i++) {
         if (headerArray[1][i])
             showColumn(tableId, i);
@@ -270,10 +265,6 @@ const activitiesPreviewData = [ // image name, tournament description
     ["marseille-2019.svg", "Marseille France, February 2019"],
     ["stockholm-2018.svg", "Stockholm Sweden, October 2018"]
 ];
-
-localStorage.setItem('activitiesHeaders', JSON.stringify(activitiesHeaders));
-localStorage.setItem('activitiesDataArray', JSON.stringify(activitiesDataArray));
-localStorage.setItem('activitiesPreviewData', JSON.stringify(activitiesPreviewData));
 
 /**
  * Prepares the HTML element that should be placed on the 'preview' cell of the activities data.
@@ -322,7 +313,7 @@ function populateActivitiesTable() {
 
     // Populate headers
     const activitiesHead = document.createElement('thead');
-    activitiesHead.appendChild(createTableHeaderRow('activitiesHeaders'));
+    activitiesHead.appendChild(createTableHeaderRow(activitiesHeaders));
     activitiesTable.appendChild(activitiesHead);
 
     const origData = clone(activitiesDataArray);
@@ -358,7 +349,7 @@ function popActivityData(activitiesTable) {
         activitiesBody.appendChild(row);
     }
     activitiesTable.appendChild(activitiesBody);
-    applyShowHide(activitiesTable.id, 'activitiesHeaders');
+    applyShowHide(activitiesTable.id, activitiesHeaders);
 }
 
 /* *************
@@ -405,9 +396,6 @@ const evolutionDataArray = [
     ['2013 4th Qtr.', '1985']
 
 ];
-
-localStorage.setItem('evolutionHeaders', JSON.stringify(evolutionHeaders));
-localStorage.setItem('evolutionDataArray', JSON.stringify(evolutionDataArray));
 
 /**
  * Prepares the HTML element that should be placed on the 'ranking' cell of the evolution data.
@@ -465,7 +453,7 @@ function populateEvolutionTable() {
 
     // Populate headers
     const evolutionHead = document.createElement('thead');
-    evolutionHead.appendChild(createTableHeaderRow('evolutionHeaders'));
+    evolutionHead.appendChild(createTableHeaderRow(evolutionHeaders));
     evolutionTable.appendChild(evolutionHead);
 
     // Add the left click listener for sorting functionality
@@ -499,7 +487,7 @@ function popEvolutionData(evolutionTable) {
         evolutionBody.appendChild(row);
     }
     evolutionTable.appendChild(evolutionBody);
-    applyShowHide(evolutionTable.id, 'evolutionHeaders');
+    applyShowHide(evolutionTable.id, evolutionHeaders);
 }
 
 // Show Hide functionality
@@ -668,29 +656,57 @@ function db() {
     return JSON.parse(localStorage.getItem(ATHLETE_KEY));
 }
 
+function registerListeners() {
+    document.getElementById('fullName').addEventListener('click', function clearLocalStorage(e) {
+        if (e.ctrlKey) {
+            if (confirm('Clear local storage?')) {
+                localStorage.clear();
+                location.reload();
+            } else {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }
+    });
+
+    document.getElementById('edit-data').addEventListener('click', function editApplicationData(e) {
+        if (confirm('This feature is not available in the free version. Upgrade to Pro version to get it!')) {
+            alert('Just joking :) There is no Pro version. Thanks for your curiosity though..');
+        }
+    });
+
+    document.getElementById('new-athlete').addEventListener('click', function clearApplicationData(e) {
+        if (confirm('To insert new data, the current Athlete\'s data will be deleted. Are you sure? Action can not be reverted')) {
+            localStorage.clear();
+            location.reload();
+        }
+    });
+
+    document.getElementById('load-data').addEventListener('click', function loadDataFromFile(e) {
+        if (confirm('To load data, the current Athlete\'s data will be deleted. Are you sure? Action can not be reverted')) {
+            const input = document.createElement('input');
+            input.setAttribute("type", "file");
+            input.addEventListener('change', async function loadFile() {
+                let file = this.files.item(0)
+                const txt = await file.text();
+                localStorage.setItem(ATHLETE_KEY, txt);
+                location.reload();
+            });
+            input.click();
+        }
+    });
+}
 
 // Main Execution
 
-if (localStorage.getItem(ATHLETE_KEY) == null) {
+// If application hasn't been setup yet, navigate to the setup page
+if (db() == null) {
     window.onload = function () {
         window.location.href = "setup.html";
     }
 }
 
-document.getElementById('fullName').addEventListener('click', function clearLocalStorage(e) {
-
-    if (e.ctrlKey) {
-        if (confirm('Clear local storage?')) {
-            localStorage.clear();
-            location.reload();
-        } else {
-            e.stopPropagation();
-            e.preventDefault();
-        }
-    }
-});
-
-
+registerListeners();
 populateBasicInfo();
 populateStatsTable();
 populateActivitiesTable();

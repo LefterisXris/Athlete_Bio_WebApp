@@ -65,20 +65,21 @@ let stefanos = {
     }
 };
 
-var currentTab = 0; // Current tab is set to be the first tab (0)
+let currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
+registerListeners();
 
 function showTab(n) {
     // This function will display the specified tab of the form...
-    var x = document.getElementsByClassName("tab");
+    let x = document.getElementsByClassName("tab");
     x[n].style.display = "block";
     //... and fix the Previous/Next buttons:
-    if (n == 0) {
+    if (n === 0) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
-    if (n == (x.length - 1)) {
+    if (n === (x.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Generate WebApp";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
@@ -89,9 +90,9 @@ function showTab(n) {
 
 function nextPrev(n) {
     // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
+    let x = document.getElementsByClassName('tab');
     // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
+    if (n === 1 && !validateForm()) return false;
     // Hide the current tab:
     x[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
@@ -106,15 +107,15 @@ function nextPrev(n) {
 }
 
 function validateForm() {
-    return true;
+    return true; // TODO: remove it once development is done
     // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
+    let x, y, i, valid = true;
+    x = document.getElementsByClassName('tab');
+    y = x[currentTab].getElementsByTagName('input');
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
         // If a field is empty...
-        if (y[i].value == "") {
+        if (y[i].value === '') {
             // add an "invalid" class to the field:
             y[i].className += " invalid";
             // and set the current valid status to false
@@ -138,37 +139,40 @@ function fixStepIndicator(n) {
     x[n].className += " active";
 }
 
-document.getElementById('imagePicker').addEventListener('change', function () {
-    let file = this.files.item(0), reader = new FileReader();
-    // Android 4.3 not supporting addEventListener + load, loadend etc. events
-    let imgElem = document.getElementById('image');
-    reader.onload = function () {
-        imgElem.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-});
+function registerListeners() {
 
-document.getElementById('countryImagePicker').addEventListener('change', function () {
-    let file = this.files.item(0), reader = new FileReader();
-    // Android 4.3 not supporting addEventListener + load, loadend etc. events
-    let imgElem = document.getElementById('country-image');
-    reader.onload = function () {
-        imgElem.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-});
+    document.getElementById('imagePicker').addEventListener('change', function () {
+        let file = this.files.item(0), reader = new FileReader();
+        // Android 4.3 not supporting addEventListener + load, loadend etc. events
+        let imgElem = document.getElementById('image');
+        reader.onload = function () {
+            imgElem.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    });
 
-document.getElementById('save-statistic').addEventListener('click', function (e) {
+    document.getElementById('countryImagePicker').addEventListener('change', function () {
+        let file = this.files.item(0), reader = new FileReader();
+        // Android 4.3 not supporting addEventListener + load, loadend etc. events
+        let imgElem = document.getElementById('country-image');
+        reader.onload = function () {
+            imgElem.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    });
 
-    // Get key-value pair
-    const nameElem = document.getElementById('stat-name');
-    const valueElem = document.getElementById('stat-value');
+    document.getElementById('save-statistic').addEventListener('click', function (e) {
 
-    // Persist it
-    playerInfo.statistics[nameElem.value.trim()] = valueElem.value.trim()
+        // Get key-value pair
+        const nameElem = document.getElementById('stat-name');
+        const valueElem = document.getElementById('stat-value');
 
-    // Clear fields for new entries
-});
+        // Persist it
+        playerInfo.statistics[nameElem.value.trim()] = valueElem.value.trim()
+
+        // Clear fields for new entries
+    });
+}
 
 function submitForm() {
     playerInfo.basicInfo.name = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value
