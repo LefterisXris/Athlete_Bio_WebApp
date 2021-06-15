@@ -1,5 +1,11 @@
 'use strict';
 
+/* **************
+*** Constants ***
+*****************/
+
+const ATHLETE_KEY = 'player';
+
 /* ********************
 *** Service Workers ***
 ***********************/
@@ -145,6 +151,44 @@ const statsDataArray = [
 
 localStorage.setItem('statsHeaders', JSON.stringify(statsHeaders));
 localStorage.setItem('statsDataArray', JSON.stringify(statsDataArray));
+
+/**
+ * Populates the athlete's basic info
+ */
+function populateBasicInfo() {
+    const basicInfo = db().basicInfo;
+
+    document.getElementById('fullName').innerText = basicInfo.name;
+    document.getElementById('player-img').src = basicInfo.image.src;
+    document.getElementById('player-img').alt = basicInfo.image.alt;
+    document.getElementById('country-flag-img').src = basicInfo.countryImage.src;
+    document.getElementById('country-flag-img').alt = basicInfo.countryImage.alt;
+
+
+    document.getElementById('height').innerText = basicInfo.height + 'cm';
+    document.getElementById('weight').innerText = basicInfo.weight + 'kg';
+
+    const date = new Date(basicInfo.birth); // TODO: format the date to smth like: 12 August 1998
+    document.getElementById('birth').innerText = basicInfo.birth;
+    document.getElementById('rank').innerText = basicInfo.rank;
+    document.getElementById('gameStyle').innerText = basicInfo.gameStyle;
+
+    const winRateArr = basicInfo.winRate.split('/');
+    const games = parseInt(winRateArr[0]);
+    const wins = parseInt(winRateArr[1]);
+    const ratio = parseFloat(100 * wins / games+'').toPrecision(2);
+    document.getElementById('winRate').innerText = `${ratio}% (${basicInfo.winRate})`;
+
+    document.getElementById('bio-1').innerHTML = db().biographyTexts[0];
+    document.getElementById('bio-2').innerHTML = db().biographyTexts[1];
+    document.getElementById('bio-3').innerHTML = db().biographyTexts[2];
+
+    document.getElementById('fb-link').setAttribute('href', db().social.facebook);
+    document.getElementById('twitter-link').setAttribute('href', db().social.twitter);
+    document.getElementById('youtube-link').setAttribute('href', db().social.youtube);
+    document.getElementById('instagram-link').setAttribute('href', db().social.instagram);
+
+}
 
 /**
  * Populates the table related with Statistics
@@ -620,9 +664,34 @@ function sortData(tableId, dataArr, headerArr, th) {
         dataArr.reverse();
 }
 
+function db() {
+    return JSON.parse(localStorage.getItem(ATHLETE_KEY));
+}
+
 
 // Main Execution
 
+if (localStorage.getItem(ATHLETE_KEY) == null) {
+    window.onload = function () {
+        window.location.href = "setup.html";
+    }
+}
+
+document.getElementById('fullName').addEventListener('click', function clearLocalStorage(e) {
+
+    if (e.ctrlKey) {
+        if (confirm('Clear local storage?')) {
+            localStorage.clear();
+            location.reload();
+        } else {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    }
+});
+
+
+populateBasicInfo();
 populateStatsTable();
 populateActivitiesTable();
 populateEvolutionTable();

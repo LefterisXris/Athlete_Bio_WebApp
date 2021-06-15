@@ -4,11 +4,14 @@ self.addEventListener('install', function (event) {
         caches.open('athlete-bio').then(function(cache) {
             return cache.addAll([
                 '/index.html',
+                '/setup.html',
                 '/manifest.json',
                 /* Javascript */
                 '/js/main.js',
+                '/js/setup.js',
                 /* CSS */
                 '/css/main.css',
+                '/css/setup.css',
                 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
                 /* Fonts */
                 '/fonts/LICENSE.txt',
@@ -17,6 +20,7 @@ self.addEventListener('install', function (event) {
                 '/fonts/OpenSansCondensed-LightItalic.ttf',
                 /* Images */
                 '/img/tennis.ico',
+                '/img/setup.ico',
                 '/img/flag-greece.png',
                 '/img/stefanos-tsitsipas-logo.png',
                 '/img/stefanos-tsitsipas-transparent.png',

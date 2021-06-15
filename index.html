@@ -29,7 +29,7 @@
 <!-- Navigation Menu -->
 <header id="navbar">
   <div class="header-left">
-    <a href="#">Stefanos Tsitsipas</a>
+    <a href="#" id="fullName">Stefanos Tsitsipas</a>
   </div>
   <div class="header-right">
     <a href="#overview">Overview</a>
@@ -43,35 +43,37 @@
 <!-- Overview -->
 <div id="overview">
   <div class="country-flag">
-    <img src="img/flag-greece.png" alt="Greece flag">
+    <img id="country-flag-img" src="" alt="Country flag">
+<!--    <img src="img/flag-greece.png" alt="Country flag">-->
   </div>
   <div class="player-photo">
-    <img src="img/stefanos-tsitsipas-transparent.png" alt="Stefanos Tsitsipas">
+    <img id="player-img" src="" alt="Athlete's Image">
+<!--    <img src="img/stefanos-tsitsipas-transparent.png" alt="Athlete's Image">-->
   </div>
   <div class="player-stats">
     <div class="info height">
       <div class="info-key">Height:&nbsp;</div>
-      <div class="info-value">193cm</div>
+      <div class="info-value" id="height"></div>
     </div>
     <div class="info weight">
       <div class="info-key">Weight:&nbsp;</div>
-      <div class="info-value">89kg</div>
+      <div class="info-value" id="weight"></div>
     </div>
     <div class="info birth">
       <div class="info-key">Birth:&nbsp;</div>
-      <div class="info-value">12 August 1998</div>
+      <div class="info-value" id="birth"></div>
     </div>
     <div class="info rank">
       <div class="info-key">Rank:&nbsp;</div>
-      <div class="info-value">5</div>
+      <div class="info-value" id="rank"></div>
     </div>
     <div class="info rate">
       <div class="info-key">Win Rate:&nbsp;</div>
-      <div class="info-value">56% (159/82)</div>
+      <div class="info-value" id="winRate"></div>
     </div>
     <div class="info style">
       <div class="info-key">Game Style:&nbsp;</div>
-      <div class="info-value">Right Handed</div>
+      <div class="info-value" id="gameStyle"></div>
     </div>
   </div>
 </div>
@@ -81,56 +83,9 @@
 <div id="bio">
   <h2>Stefanos' Biography</h2>
   <div id="bio-flexbox">
-    <div>
-      <h4>1. BEGINNING OF HIS LIFE</h4>
-      <p>
-        Stefanos was born in Athens, Greece at 12th of August 1998 to a Greek father from Karditsa, Greece and a Russian
-        mother from Moscow, Russia. These two people were the first ones to introduce him to tennis. It all started at
-        the tennis courts of a local resort in which both of his parents worked as tennis coaches for tourists and
-        travelers. That was the place where he picked up his first tennis racket and learnt all the secrets of this
-        wonderful sport.
-      </p>
-      <p>
-        He was the first child out of four in the family. They lived in a touristic suburb south of Athens called
-        Vouliagmeni with a population of less than 6,000 people. The suburb is named after
-        <a href="https://www.limnivouliagmenis.gr/">Lake Vouliagmeni</a>, located in its vicinity.
-      </p>
-    </div>
-    <div>
-      <h4>2. GETTING STARTED WITH TENNIS</h4>
-      <p>At the the age of six Stefanos started having his first tennis lessons at the Tennis Club Glifada in a group
-        with other kids at his age. His first coach was Giorgos Spiliopoulos who taught him about the importance of the
-        sport, discipline, work-ethic and right technique on court. It was a very important step having a humble coach
-        like Giorgos giving him the right steps and directing him with his knowledge from the beginning of time.
-      </p>
-      <p>At the age of eight he moved to Giorgos Fountoukos, the person who developed his game, technique, footwork as a
-        junior player. Giorgos Fountoukos was a big change in Stefanos' tennis since then, he is a very experienced
-        tennis coach with lot’s of on-court knowledge, a very conventional way of technique development and a unique
-        cast of mind on the tennis court. He is his tennis coach back home until today.
-      </p>
-    </div>
-    <div>
-      <h4>3. UNDERSTANDING HIS LIFE THROUGH TENNIS</h4>
-      <p>After getting started with the game of tennis there was a crucial decision that he had to make, a decision that
-        was getting closer as the years went by. This decision was his future. Does he want to make tennis his
-        profession? Is he ready to sacrifice his life in Greece to begin traveling for tennis? The answer from his 12
-        year old self was <q>Yes, I want to do that.</q>
-      </p>
-      <p>He was ready for this long journey, this battle that he had to face, the stress, the sleepless nights, the
-        tension, the frustration, the nerves, the anxiety… He had to face an opponent, but the biggest challenge was to
-        surpass his expectations. He was going to take his chances, fail most of the time but, that was and still is the
-        key on growing successfully and chasing a dream that was and is there. Titles that many people want, but only
-        few get.
-      </p>
-      <p>Tennis taught him a lot of things in his life. He has experienced things that he wouldn't otherwise experience
-        if he wasn't playing the sport that he loves. Tennis allowed him to see new places, meet new people, discover
-        cultures... He was able to turn his childhood hobby into hs profession. That was incredible already!
-      </p>
-      <p>Tennis has taught him of discipline, self-awareness, behaviour, morality, respect, sportsmanship and
-        decision-making. He owns everything to this game, a game with which he has grown, learned and failed most of the
-        time. Tennis represents him and everything that he has. Tennis is always going to be his job and his passion.
-        Tennis is his life!</p>
-    </div>
+    <div id="bio-1"></div>
+    <div id="bio-2"></div>
+    <div id="bio-3"></div>
   </div>
   <div class="source">Source <a href="https://www.stsitsipas.com/bio/">https://www.stsitsipas.com/bio/</a></div>
 </div>
@@ -164,11 +119,11 @@
 <!-- Social Media -->
 <hr>
 <div class="social">
-  <h3>Follow Stefanos in Social Media:</h3>
-  <a href="https://www.facebook.com/StefTsitsipas" class="fa fa-facebook"></a>
-  <a href="https://twitter.com/StefTsitsipas" class="fa fa-twitter"></a>
-  <a href="https://www.youtube.com/channel/UCO5HFpRQMOBZvFoHgOneaMQ" class="fa fa-youtube"></a>
-  <a href="https://www.instagram.com/stefanostsitsipas98/" class="fa fa-instagram"></a>
+  <h3>Stay in touch on Social Media:</h3>
+  <a id="fb-link" href="" class="fa fa-facebook"></a>
+  <a id="twitter-link" href="" class="fa fa-twitter"></a>
+  <a id="youtube-link" href="" class="fa fa-youtube"></a>
+  <a id="instagram-link" href="" class="fa fa-instagram"></a>
 </div>
 
 <div id="ctxMenu">
