@@ -106,7 +106,7 @@ button:hover {
   background-color: #1f4aa7;
 }
 
-#clear-all-stats {
+.del-btn {
   background-color: red;
   margin-right: 5px;
 }

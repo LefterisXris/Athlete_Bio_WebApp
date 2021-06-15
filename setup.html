@@ -110,41 +110,78 @@
             <input id="stat-value" placeholder="Value">
         </div>
         <div class="entry">
-            <label for="preview-stat">Saved Statistics (read-only):</label>
+            <label for="preview-stat">Saved Statistics (for preview):</label>
             <input id="preview-stat" readonly placeholder="Add entries to preview them (read-only field">
         </div>
         <div class="entry">
             <label for="save-stat"></label>
-            <button id="clear-all-stats">Clear All</button>
-            <button id="save-stat">Save Entry</button>
+            <button id="clear-all-stats" class="del-btn">Clear All</button>
+            <button id="save-stat" class="save-btn">Save Entry</button>
         </div>
-
     </div>
     <!-- Step 5: Tournaments -->
     <div class="tab">
-        <!-- TODO: Should have a button to add a tournament entry data -->
-        <span class="tab-description">Social Media:</span>
         <div class="entry">
-            <label for="fb-link">Facebook:</label>
-            <input id="fb-link" placeholder="Link to Facebook Profile">
+            <label for="tournament-name">Tournament:</label>
+            <input id="tournament-name" placeholder="Tournament name..">
         </div>
         <div class="entry">
-            <label for="twitter-link">Twitter:</label>
-            <input id="twitter-link" placeholder="Link to Twitter Profile">
+            <label for="tournament-location">Location:</label>
+            <input id="tournament-location" placeholder="Location (City, Month-Year)">
         </div>
         <div class="entry">
-            <label for="youtube-link">Youtube:</label>
-            <input id="youtube-link" placeholder="Link to Youtube Profile">
+            <label for="tournament-participants">Participants:</label>
+            <input id="tournament-participants" placeholder="Number of Participants..">
         </div>
         <div class="entry">
-            <label for="instagram-link">Instagram:</label>
-            <input id="instagram-link" placeholder="Link to Instagram Profile">
+            <label for="tournament-games">Games:</label>
+            <input id="tournament-games" placeholder="Games in which the athlete played..">
+        </div>
+        <div class="entry">
+            <label for="tournament-wl">Wins-Loses:</label>
+            <input id="tournament-wl" placeholder="Number of Wins and Loses (W/L)">
+        </div>
+        <div class="entry">
+            <label for="boardPicker">Board Image:</label>
+            <input id="boardPicker" type="file" accept="image/*">
+            <div class="img-upload-wrapper">
+                <img id="board-img" src="">
+            </div>
+        </div>
+        <div class="entry">
+            <label for="tournament-board-lbl">Board Label:</label>
+            <input id="tournament-board-lbl" placeholder="The label for the board...">
+        </div>
+        <div class="entry">
+            <label for="preview-tournament">Saved Tournament Info (for preview):</label>
+            <input id="preview-tournament" readonly placeholder="Add entries to preview them (read-only field">
+        </div>
+        <div class="entry">
+            <label for="save-tournament"></label>
+            <button id="clear-all-tournaments" class="del-btn">Clear All</button>
+            <button id="save-tournament" class="save-btn">Save Tournament</button>
         </div>
     </div>
     <!-- Step 6: Ranking Evolution -->
     <div class="tab">
-        <!-- TODO: Should have a start-from field, and then be automatically expanded to today -->
-        <span class="tab-description">Social Media:</span>
+        <span class="tab-description">Ranking Evolution:</span>
+        <div class="entry">
+            <label for="date">Date:</label>
+            <input id="date" placeholder="Time frame (e.g. Quarter, Half Year or Year)">
+        </div>
+        <div class="entry">
+            <label for="ranking">Ranking:</label>
+            <input id="ranking" placeholder="Ranking">
+        </div>
+        <div class="entry">
+            <label for="preview-ranking">Saved Rankings (for preview):</label>
+            <input id="preview-ranking" readonly placeholder="Add entries to preview them (read-only field">
+        </div>
+        <div class="entry">
+            <label for="save-ranking"></label>
+            <button id="clear-all-rankings" class="del-btn">Clear All</button>
+            <button id="save-ranking" class="save-btn">Save Entry</button>
+        </div>
     </div>
     <!-- Step 7: Social Media -->
     <div class="tab">
@@ -169,7 +206,7 @@
     <div style="overflow:auto;">
         <div style="float:right;">
             <button type="button" id="prevBtn" onclick="previous()">Previous</button>
-            <button type="button" id="loadBtn" onclick="loadData()">Load Data</button>
+            <button type="button" id="loadBtn" onclick="loadData()">Load from File</button>
             <button type="button" id="nextBtn" onclick="next()">Next</button>
         </div>
     </div>

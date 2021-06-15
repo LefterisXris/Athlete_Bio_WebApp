@@ -24,38 +24,6 @@ if ('serviceWorker' in navigator) {
 let deferredPrompt;
 const installBtn = document.getElementById('install');
 
-window.addEventListener('beforeinstallprompt', function (ev) {
-    // Prevent some older browsers from popping the install prompt
-    ev.preventDefault();
-    // Stash the event so it can be triggered later.
-    deferredPrompt = ev;
-    // Update UI to notify the user they can add to home screen
-    installBtn.style.visibility = 'visible';
-
-    installBtn.addEventListener('click', function () {
-        // Show the prompt
-        deferredPrompt.prompt();
-        // Wait for the user to respond to the prompt
-        deferredPrompt.userChoice.then(function (choiceResult) {
-            if (choiceResult.outcome === 'accepted') {
-                // Don't need it any more
-                installBtn.style.visibility = 'hidden';
-                deferredPrompt = null;
-                console.log('User accepted the A2HS prompt');
-            } else {
-                console.log('User dismissed the A2HS prompt');
-            }
-        });
-    });
-});
-
-window.addEventListener('appinstalled', function () {
-    installBtn.style.visibility = 'hidden';
-    deferredPrompt = null;
-    console.log('PWA was installed');
-});
-
-
 /* ************
 *** Generic ***
 ***************/
@@ -240,22 +208,8 @@ const activitiesHeaders = [
     [true, true, true, true, true, true],
     ['text', 'text', 'numeric', 'numeric', 'numeric', 'none']
 ];
-const activitiesDataArray = [
-    ['ATP Masters', 'Monte Carlo, Apr-2021', '56', '5', '5/0'],
-    ['Open 13 Provence', 'Marseille, Feb-2020', '28', '4', '4/0'],
-    ['Nitto ATP Finals', 'London, Nov-2018', '8', '5', '4/1'],
-    ['Estoril', 'Portugal, Apr-2019', '28', '4', '4/0'],
-    ['Marseille', 'France, Feb-2019', '28', '4', '4/0'],
-    ['Stockholm', 'Sweden, Oct-2018', '28', '4', '4/0']
-];
-const activitiesPreviewData = [ // image name, tournament description
-    ["monte-carlo-2021.svg", "ATP Masters, Monte Carlo, April 2021"],
-    ["marseille-2020.svg", "Open 13 Provence, Marseille, February 2020"],
-    ["london-2020.svg", "Nitto ATP Finals, London, November 2019"],
-    ["estoril-2020.svg", "Estoril Portugal, April 2019"],
-    ["marseille-2019.svg", "Marseille France, February 2019"],
-    ["stockholm-2018.svg", "Stockholm Sweden, October 2018"]
-];
+const activitiesDataArray = [];
+const activitiesPreviewData = [];
 
 /**
  * Prepares the HTML element that should be placed on the 'preview' cell of the activities data.
@@ -263,6 +217,9 @@ const activitiesPreviewData = [ // image name, tournament description
  * initial data. This function 'adds' the generated preview html to the data array.
  */
 function prepareActivitiesPreviewData() {
+    // retrieve tournaments meta-data from localStorage
+    db().tournamentsMeta.forEach(entry => activitiesPreviewData.push(entry));
+
     if (activitiesDataArray.length !== activitiesPreviewData.length) {
         alert('A mismatch identified on Activities data. Render might fail');
     }
@@ -279,11 +236,12 @@ function prepareActivitiesPreviewData() {
         const moreDiv = document.createElement('div');
         moreDiv.setAttribute('class', 'preview-more');
         const moreImg = document.createElement('img');
-        moreImg.setAttribute('src', 'img/tournaments/' + activitiesPreviewData[i][0]);
-        moreImg.setAttribute('alt', activitiesPreviewData[i][0].replace('.svg', ''));
+        moreImg.src = activitiesPreviewData[i][0];
+        // moreImg.setAttribute('src', 'img/tournaments/' + activitiesPreviewData[i][0]);
+        moreImg.setAttribute('alt', activitiesPreviewData[i][1]);
         const decrDiv = document.createElement('div');
         decrDiv.setAttribute('class', 'preview-desc');
-        decrDiv.innerHTML = activitiesPreviewData[i][1];
+        decrDiv.innerHTML = activitiesPreviewData[i][2];
 
         moreDiv.appendChild(moreImg);
         moreDiv.appendChild(decrDiv);
@@ -300,6 +258,8 @@ function prepareActivitiesPreviewData() {
  */
 function populateActivitiesTable() {
 
+    // retrieve tournaments data from localStorage
+    db().tournaments.forEach(entry => activitiesDataArray.push(entry));
     const activitiesTable = document.getElementById('activity-table');
 
     // Populate headers
@@ -353,40 +313,7 @@ const evolutionHeaders = [
     [true, true],
     ['text', 'html']
 ];
-const evolutionDataArray = [
-    ['2021 2nd Qtr.', '5'],
-    ['2021 1st Qtr.', '6'],
-    ['2020 4th Qtr.', '6'],
-    ['2020 3nd Qtr.', '6'],
-    ['2020 2nd Qtr.', '6'],
-    ['2020 1st Qtr.', '6'],
-    ['2019 4th Qtr.', '6'],
-    ['2019 3nd Qtr.', '7'],
-    ['2019 2nd Qtr.', '6'],
-    ['2019 1st Qtr.', '10'],
-    ['2018 4th Qtr.', '15'],
-    ['2018 3nd Qtr.', '15'],
-    ['2018 2nd Qtr.', '35'],
-    ['2018 1st Qtr.', '70'],
-    ['2017 4th Qtr.', '91'],
-    ['2017 3nd Qtr.', '117'],
-    ['2017 2nd Qtr.', '190'],
-    ['2017 1st Qtr.', '204'],
-    ['2016 4th Qtr.', '210'],
-    ['2016 3nd Qtr.', '310'],
-    ['2016 2nd Qtr.', '358'],
-    ['2016 1st Qtr.', '522'],
-    ['2015 4th Qtr.', '576'],
-    ['2015 3nd Qtr.', '948'],
-    ['2015 2nd Qtr.', '1042'],
-    ['2015 1st Qtr.', '1117'],
-    ['2014 4th Qtr.', '1280'],
-    ['2014 3nd Qtr.', '1709'],
-    ['2014 2nd Qtr.', '2150'],
-    ['2014 1st Qtr.', '2124'],
-    ['2013 4th Qtr.', '1985']
-
-];
+const evolutionDataArray = [];
 
 /**
  * Prepares the HTML element that should be placed on the 'ranking' cell of the evolution data.
@@ -440,6 +367,8 @@ function prepareEvolutionProgressData() {
  */
 function populateEvolutionTable() {
 
+    // retrieve ranking evolution data from localStorage
+    db().rankingEvolution.forEach(entry => evolutionDataArray.push(entry));
     const evolutionTable = document.getElementById('evolution-table');
 
     // Populate headers
@@ -648,16 +577,35 @@ function db() {
 }
 
 function registerListeners() {
-    document.getElementById('fullName').addEventListener('click', function clearLocalStorage(e) {
-        if (e.ctrlKey) {
-            if (confirm('Clear local storage?')) {
-                localStorage.clear();
-                location.reload();
-            } else {
-                e.stopPropagation();
-                e.preventDefault();
-            }
-        }
+    window.addEventListener('beforeinstallprompt', function (ev) {
+        // Prevent some older browsers from popping the install prompt
+        ev.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = ev;
+        // Update UI to notify the user they can add to home screen
+        installBtn.style.visibility = 'visible';
+
+        installBtn.addEventListener('click', function () {
+            // Show the prompt
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then(function (choiceResult) {
+                if (choiceResult.outcome === 'accepted') {
+                    // Don't need it any more
+                    installBtn.style.visibility = 'hidden';
+                    deferredPrompt = null;
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+            });
+        });
+    });
+
+    window.addEventListener('appinstalled', function () {
+        installBtn.style.visibility = 'hidden';
+        deferredPrompt = null;
+        console.log('PWA was installed');
     });
 
     document.getElementById('edit-data').addEventListener('click', function editApplicationData(e) {
@@ -715,7 +663,7 @@ Done in 2nd iteration:
 */
 
 /*
-TODO in 3rd iteration:
+Done in 3rd iteration:
  - PWA (manifest + sw)
  - Dynamic data loading (check for json import/export)
     - Start with a blank page
@@ -727,6 +675,10 @@ TODO in 3rd iteration:
     - Prompt to add ranking evolution data
     - Prompt to add links for fb, twitter, youtube and insta (optional all)
  - Local storage (all the above data)
+ */
+
+/*
+TODO in 3rd iteration:
  - Filtering options
     - Filter tournaments in Balkan
     - Filter on ranking: show neutral/negative/positive progress quarters

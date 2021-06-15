@@ -26,53 +26,13 @@ let playerInfo = {
     biographyTexts: [],
     statistics: {},
     tournaments: [],
+    tournamentsMeta: [],
     rankingEvolution: [],
     social: {
         facebook: null,
         twitter: null,
         youtube: null,
         instagram: null,
-    }
-};
-
-let stefanos = {
-    basicInfo: {
-        name: 'Stefanos Tsitsipas',
-        image: {
-            src: null,
-            alt: null
-        },
-        countryImage: {
-            src: null,
-            alt: null
-        },
-        height: 193,
-        weight: 89,
-        birth: '12/08/1998',
-        rank: 2,
-        winRate: '159/82',
-        gameStyle: 'Right Handed'
-    },
-    biographyTexts: [],
-    statistics: {
-        "Aces": "1616",
-        "Double Faults": "529",
-        "1st Serve": "62%",
-        "1st Serve Points Won": "76%",
-        "2nd Serve Points Won": "54%",
-        "Break Points Faced": "1190",
-        "Break Points Saved": "64%",
-        "Service Games Played": "3060",
-        "Service Games Won": "86%",
-        "Total Service Points Won": "68%"
-    },
-    tournaments: [],
-    rankingEvolution: [],
-    social: {
-        facebook: 'https://www.facebook.com/StefTsitsipas',
-        twitter: 'https://twitter.com/StefTsitsipas',
-        youtube: 'https://www.youtube.com/channel/UCO5HFpRQMOBZvFoHgOneaMQ',
-        instagram: 'https://www.instagram.com/stefanostsitsipas98/',
     }
 };
 
@@ -221,8 +181,7 @@ function registerListeners() {
         playerInfo.statistics[nameElem.value.trim()] = valueElem.value.trim()
 
         // Clear fields for new entries
-        nameElem.value = '';
-        valueElem.value = '';
+        clearStatData();
         previewElem.value = Object.keys(playerInfo.statistics)
             .map(key => key + '=' + playerInfo.statistics[key])
             .join(', ');
@@ -233,19 +192,124 @@ function registerListeners() {
         e.preventDefault();
         e.stopPropagation();
 
-        // Get key-value pair
-        const nameElem = document.getElementById('stat-name');
-        const valueElem = document.getElementById('stat-value');
-        const previewElem = document.getElementById('preview-stat');
+        playerInfo.statistics = {};
+        clearStatData();
+    });
+
+    document.getElementById('boardPicker').addEventListener('change', function () {
+        let file = this.files.item(0), reader = new FileReader();
+        // Android 4.3 not supporting addEventListener + load, loadend etc. events
+        let imgElem = document.getElementById('board-img');
+        imgElem.value = file.name;
+        reader.onload = function () {
+            imgElem.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('save-tournament').addEventListener('click', function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Get data
+        const nameElem = document.getElementById('tournament-name');
+        const locationElem = document.getElementById('tournament-location');
+        const participantsElem = document.getElementById('tournament-participants');
+        const gamesElem = document.getElementById('tournament-games');
+        const wlElem = document.getElementById('tournament-wl');
+        const boardSrcElem = document.getElementById('board-img');
+        const boardLabelElem = document.getElementById('tournament-board-lbl');
+        const previewElem = document.getElementById('preview-tournament');
 
         // Persist it
-        playerInfo.statistics = {};
+        playerInfo.tournaments.push([
+            nameElem.value.trim(),
+            locationElem.value.trim(),
+            participantsElem.value.trim(),
+            gamesElem.value.trim(),
+            wlElem.value.trim()
+        ]);
+
+        playerInfo.tournamentsMeta.push([
+            boardSrcElem.src,
+            boardSrcElem.value.trim(),
+            boardLabelElem.value.trim()
+        ]);
 
         // Clear fields for new entries
-        nameElem.value = '';
-        valueElem.value = '';
-        previewElem.value = '';
+        clearTournamentFields();
+
+        previewElem.value = playerInfo.tournaments.map(entry => entry.join(', '));
     });
+
+    document.getElementById('clear-all-tournaments').addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        playerInfo.tournaments = [];
+        playerInfo.tournamentsMeta = [];
+        clearTournamentFields();
+    });
+
+    document.getElementById('save-ranking').addEventListener('click', function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Get key-value pair
+        const dateElem = document.getElementById('date');
+        const rankElem = document.getElementById('ranking');
+        const previewElem = document.getElementById('preview-ranking');
+
+        // TODO: This can be used for bulk data loading from a CSV value (multiple data)
+        /*const dates = dateElem.value.trim().split(',');
+        const ranks = rankElem.value.trim().split(',');
+
+        for (let i = 0; i < dates.length; i++) {
+            playerInfo.rankingEvolution.push([dates[i].trim(), ranks[i].trim()]);
+        }*/
+
+        // Persist it
+        playerInfo.rankingEvolution.push([dateElem.value.trim(), rankElem.value.trim()]);
+
+        // Clear fields for new entries
+        clearRankingData();
+        previewElem.value = playerInfo.rankingEvolution.map(entry => entry.join(', '));
+    });
+
+    document.getElementById('clear-all-rankings').addEventListener('click', function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        playerInfo.rankingEvolution = [];
+        clearRankingData();
+    });
+}
+
+function clearStatData() {
+    document.getElementById('stat-name').value = '';
+    document.getElementById('stat-value').value = '';
+    document.getElementById('preview-stat').value = '';
+}
+
+function clearTournamentFields() {
+    document.getElementById('tournament-name').value = '';
+    document.getElementById('tournament-location').value = '';
+    document.getElementById('tournament-participants').value = '';
+    document.getElementById('tournament-games').value = '';
+    document.getElementById('tournament-wl').value = '';
+    document.getElementById('boardPicker').value = '';
+    document.getElementById('board-img').value = '';
+    document.getElementById('tournament-board-lbl').value = '';
+    document.getElementById('preview-tournament').value = '';
+}
+
+function clearRankingData() {
+    document.getElementById('date').value = '';
+    document.getElementById('ranking').value = '';
+    document.getElementById('preview-ranking').value = '';
 }
 
 function submitForm() {
