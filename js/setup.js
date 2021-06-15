@@ -69,74 +69,99 @@ let currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 registerListeners();
 
+/**
+ * Marks the provided form's tab as active (i.e. shows it)
+ * @param n
+ */
 function showTab(n) {
-    // This function will display the specified tab of the form...
-    let x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    //... and fix the Previous/Next buttons:
+
+    let tab = document.getElementsByClassName("tab");
+    tab[n].style.display = "block";
+    // check which buttons should be visible
     if (n === 0) {
         document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("loadBtn").style.display = "inline";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("loadBtn").style.display = "none";
     }
-    if (n === (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Generate WebApp";
+    if (n === (tab.length - 1)) {
+        document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
-    //... and run a function that will display the correct step indicator:
-    fixStepIndicator(n)
+
+    // update the step indicator:
+    updateStepIndicator(n)
 }
 
-function nextPrev(n) {
-    // This function will figure out which tab to display
-    let x = document.getElementsByClassName('tab');
-    // Exit the function if any field in the current tab is invalid:
-    if (n === 1 && !validateForm()) return false;
-    // Hide the current tab:
-    x[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
-    // if you have reached the end of the form...
-    if (currentTab >= x.length) {
+/**
+ * Navigates the form to the next tab
+ */
+function next() {
+    let tab = document.getElementsByClassName('tab');
+
+    // if current step is not valid, do nothing
+    if (!validateForm())
+        return false;
+
+    // Go to the next tab
+    tab[currentTab].style.display = "none";
+    currentTab += 1;
+
+    // check if it is the last one, or just show the next tab
+    if (currentTab >= tab.length) {
         submitForm();
         return false;
+    } else {
+        showTab(currentTab);
     }
-    // Otherwise, display the correct tab:
-    showTab(currentTab);
+}
+
+/**
+ * Navigates the form to the previous tab
+ */
+function previous() {
+    let tab = document.getElementsByClassName('tab');
+
+    // Go to the next tab
+    tab[currentTab].style.display = "none";
+    currentTab -= 1;
+
+    // check if it is the last one, or just show the next tab
+    if (currentTab >= tab.length) {
+        submitForm();
+        return false;
+    } else {
+        showTab(currentTab);
+    }
+}
+
+function loadData() {
+    const input = document.createElement('input');
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", ".json");
+    input.addEventListener('change', async function loadFile() {
+        let file = this.files.item(0)
+        const jsonFileValue = await file.text();
+        saveAndRedirect(ATHLETE_KEY, jsonFileValue);
+    });
+    input.click();
 }
 
 function validateForm() {
-    return true; // TODO: remove it once development is done
-    // This function deals with validation of the form fields
-    let x, y, i, valid = true;
-    x = document.getElementsByClassName('tab');
-    y = x[currentTab].getElementsByTagName('input');
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-        // If a field is empty...
-        if (y[i].value === '') {
-            // add an "invalid" class to the field:
-            y[i].className += " invalid";
-            // and set the current valid status to false
-            valid = false;
-        }
-    }
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
-    return valid; // return the valid status
+    // TODO: can be used for form validation
+    return true;
 }
 
-function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-    //... and adds the "active" class on the current step:
-    x[n].className += " active";
+/**
+ * Removes the active class from all steps, and sets it to the currently active one (param)
+ */
+function updateStepIndicator(n) {
+    let i, elem = document.getElementsByClassName("step");
+    for (i = 0; i < elem.length; i++)
+        elem[i].className = elem[i].className.replace(" active", "");
+    elem[n].className += " active";
 }
 
 function registerListeners() {
@@ -194,10 +219,12 @@ function submitForm() {
     playerInfo.social.youtube = document.getElementById('youtube-link').value.trim();
     playerInfo.social.instagram = document.getElementById('instagram-link').value.trim();
 
-    localStorage.setItem(ATHLETE_KEY, JSON.stringify(playerInfo));
+    saveAndRedirect(ATHLETE_KEY, JSON.stringify(playerInfo));
+}
 
-    console.log(localStorage.getItem(ATHLETE_KEY));
-    alert('LEC:submitted' + localStorage.getItem(ATHLETE_KEY));
-
+function saveAndRedirect(key, value) {
+    localStorage.setItem(key, value);
+    console.log('Saving entry to localStorage. Key: ' + key + ' value: ' + value);
+    console.log('Redirecting to WebApplication...');
     window.location.href = "index.html";
 }

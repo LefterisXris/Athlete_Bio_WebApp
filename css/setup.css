@@ -102,7 +102,17 @@ button:hover {
   background-color: #bbbbbb;
 }
 
+#loadBtn {
+  background-color: #1f4aa7;
+}
+
+
 /* Make circles that indicate the steps of the form: */
+.step-indicator-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+
 .step {
   height: 15px;
   width: 15px;

@@ -30,7 +30,7 @@
     <h1>Application Setup</h1>
     <!-- Step 1: Basic Information -->
     <div class="tab">
-        <span class="tab-description">Fill in the Athlete's basic information</span>
+        <span class="tab-description">Fill in the Athlete's basic information, or use the load button to load a .json file</span>
         <div class="entry">
             <label for="firstName">First Name:</label>
             <input id="firstName" placeholder="First name...">
@@ -140,12 +140,13 @@
     --></div>
     <div style="overflow:auto;">
         <div style="float:right;">
-            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            <button type="button" id="prevBtn" onclick="previous()">Previous</button>
+            <button type="button" id="loadBtn" onclick="loadData()">Load Data</button>
+            <button type="button" id="nextBtn" onclick="next()">Next</button>
         </div>
     </div>
     <!-- Circles which indicates the steps of the form: -->
-    <div style="text-align:center;margin-top:40px;">
+    <div class="step-indicator-wrapper">
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>

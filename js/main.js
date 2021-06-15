@@ -686,6 +686,7 @@ function registerListeners() {
         if (confirm('To load data, the current Athlete\'s data will be deleted. Are you sure? Action can not be reverted')) {
             const input = document.createElement('input');
             input.setAttribute("type", "file");
+            input.setAttribute("accept", ".json");
             input.addEventListener('change', async function loadFile() {
                 let file = this.files.item(0)
                 const txt = await file.text();
