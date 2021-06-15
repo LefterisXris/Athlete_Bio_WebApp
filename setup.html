@@ -82,6 +82,7 @@
             <input id="gameStyle" placeholder="Game Style">
         </div>
     </div>
+    <!-- Step 3: Short Biography (3 paragraphs) -->
     <div class="tab">
         <span class="tab-description">Short Biography:</span>
         <div class="entry">
@@ -97,6 +98,7 @@
             <textarea id="bio-3" placeholder="Biography (3rd paragraph)"></textarea>
         </div>
     </div>
+    <!-- Step 4: Statistics -->
     <div class="tab">
         <span class="tab-description">Statistics:</span>
         <div class="entry">
@@ -107,8 +109,44 @@
             <label for="stat-value">Value:</label>
             <input id="stat-value" placeholder="Value">
         </div>
-        <button id="save-statistic">Save Entry</button>
+        <div class="entry">
+            <label for="preview-stat">Saved Statistics (read-only):</label>
+            <input id="preview-stat" readonly placeholder="Add entries to preview them (read-only field">
+        </div>
+        <div class="entry">
+            <label for="save-stat"></label>
+            <button id="clear-all-stats">Clear All</button>
+            <button id="save-stat">Save Entry</button>
+        </div>
+
     </div>
+    <!-- Step 5: Tournaments -->
+    <div class="tab">
+        <!-- TODO: Should have a button to add a tournament entry data -->
+        <span class="tab-description">Social Media:</span>
+        <div class="entry">
+            <label for="fb-link">Facebook:</label>
+            <input id="fb-link" placeholder="Link to Facebook Profile">
+        </div>
+        <div class="entry">
+            <label for="twitter-link">Twitter:</label>
+            <input id="twitter-link" placeholder="Link to Twitter Profile">
+        </div>
+        <div class="entry">
+            <label for="youtube-link">Youtube:</label>
+            <input id="youtube-link" placeholder="Link to Youtube Profile">
+        </div>
+        <div class="entry">
+            <label for="instagram-link">Instagram:</label>
+            <input id="instagram-link" placeholder="Link to Instagram Profile">
+        </div>
+    </div>
+    <!-- Step 6: Ranking Evolution -->
+    <div class="tab">
+        <!-- TODO: Should have a start-from field, and then be automatically expanded to today -->
+        <span class="tab-description">Social Media:</span>
+    </div>
+    <!-- Step 7: Social Media -->
     <div class="tab">
         <span class="tab-description">Social Media:</span>
         <div class="entry">
@@ -128,16 +166,6 @@
             <input id="instagram-link" placeholder="Link to Instagram Profile">
         </div>
     </div>
-    <!--<div class="tab">
-        Tournaments:
-        &lt;!&ndash; TODO: Should have a button to add a tournament entry data &ndash;&gt;
-        <p><input placeholder="Username..." name="uname"></p>
-    </div>
-    <div class="tab">
-        Ranking Evolution:
-        &lt;!&ndash; TODO: Should have a start-from field, and then be automatically expanded to today &ndash;&gt;
-        <p><input placeholder="Username..." name="uname"></p>
-    --></div>
     <div style="overflow:auto;">
         <div style="float:right;">
             <button type="button" id="prevBtn" onclick="previous()">Previous</button>
@@ -145,14 +173,15 @@
             <button type="button" id="nextBtn" onclick="next()">Next</button>
         </div>
     </div>
-    <!-- Circles which indicates the steps of the form: -->
+    <!-- Steps indicators -->
     <div class="step-indicator-wrapper">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <!--<span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>-->
+        <span class="step" onclick="jumpToTab(0)"></span>
+        <span class="step" onclick="jumpToTab(1)"></span>
+        <span class="step" onclick="jumpToTab(2)"></span>
+        <span class="step" onclick="jumpToTab(3)"></span>
+        <span class="step" onclick="jumpToTab(4)"></span>
+        <span class="step" onclick="jumpToTab(5)"></span>
+        <span class="step" onclick="jumpToTab(6)"></span>
     </div>
 </form>
 

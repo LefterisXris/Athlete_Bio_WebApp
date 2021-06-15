@@ -135,18 +135,7 @@ const statsHeaders = [
     [true, true],
     ['text', 'numeric']
 ];
-const statsDataArray = [
-    ['Aces', '1,616'],
-    ['Double Faults', '529'],
-    ['1st Serve', '62%'],
-    ['1st Serve Points Won', '76%'],
-    ['2nd Serve Points Won', '54%'],
-    ['Break Points Faced', '1,190'],
-    ['Break Points Saved', '64%'],
-    ['Service Games Played', '3,060'],
-    ['Service Games Won', '86%'],
-    ['Total Service Points Won', '68%']
-];
+const statsDataArray = [];
 
 /**
  * Populates the athlete's basic info
@@ -191,6 +180,8 @@ function populateBasicInfo() {
  */
 function populateStatsTable() {
 
+    // retrieve stats data from localStorage
+    Object.entries(db().statistics).forEach(entry => statsDataArray.push(entry));
     const statsTable = document.getElementById('stats-table');
 
     // Populate headers

@@ -54,7 +54,18 @@ let stefanos = {
         gameStyle: 'Right Handed'
     },
     biographyTexts: [],
-    statistics: {},
+    statistics: {
+        "Aces": "1616",
+        "Double Faults": "529",
+        "1st Serve": "62%",
+        "1st Serve Points Won": "76%",
+        "2nd Serve Points Won": "54%",
+        "Break Points Faced": "1190",
+        "Break Points Saved": "64%",
+        "Service Games Played": "3060",
+        "Service Games Won": "86%",
+        "Total Service Points Won": "68%"
+    },
     tournaments: [],
     rankingEvolution: [],
     social: {
@@ -75,8 +86,8 @@ registerListeners();
  */
 function showTab(n) {
 
-    let tab = document.getElementsByClassName("tab");
-    tab[n].style.display = "block";
+    let tabs = document.getElementsByClassName("tab");
+    tabs[n].style.display = "block";
     // check which buttons should be visible
     if (n === 0) {
         document.getElementById("prevBtn").style.display = "none";
@@ -85,7 +96,7 @@ function showTab(n) {
         document.getElementById("prevBtn").style.display = "inline";
         document.getElementById("loadBtn").style.display = "none";
     }
-    if (n === (tab.length - 1)) {
+    if (n === (tabs.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
@@ -99,18 +110,18 @@ function showTab(n) {
  * Navigates the form to the next tab
  */
 function next() {
-    let tab = document.getElementsByClassName('tab');
+    let tabs = document.getElementsByClassName('tab');
 
     // if current step is not valid, do nothing
     if (!validateForm())
         return false;
 
     // Go to the next tab
-    tab[currentTab].style.display = "none";
+    tabs[currentTab].style.display = "none";
     currentTab += 1;
 
     // check if it is the last one, or just show the next tab
-    if (currentTab >= tab.length) {
+    if (currentTab >= tabs.length) {
         submitForm();
         return false;
     } else {
@@ -122,19 +133,29 @@ function next() {
  * Navigates the form to the previous tab
  */
 function previous() {
-    let tab = document.getElementsByClassName('tab');
+    let tabs = document.getElementsByClassName('tab');
 
     // Go to the next tab
-    tab[currentTab].style.display = "none";
+    tabs[currentTab].style.display = "none";
     currentTab -= 1;
 
     // check if it is the last one, or just show the next tab
-    if (currentTab >= tab.length) {
+    if (currentTab >= tabs.length) {
         submitForm();
         return false;
     } else {
         showTab(currentTab);
     }
+}
+
+/**
+ * Navigates the form to the give tab
+ */
+function jumpToTab(n) {
+    let tabs = document.getElementsByClassName('tab');
+    tabs[currentTab].style.display = "none";
+    currentTab = n;
+    showTab(n);
 }
 
 function loadData() {
@@ -158,10 +179,10 @@ function validateForm() {
  * Removes the active class from all steps, and sets it to the currently active one (param)
  */
 function updateStepIndicator(n) {
-    let i, elem = document.getElementsByClassName("step");
-    for (i = 0; i < elem.length; i++)
-        elem[i].className = elem[i].className.replace(" active", "");
-    elem[n].className += " active";
+    let tabs = document.getElementsByClassName("step");
+    for (let i = 0; i < tabs.length; i++)
+        tabs[i].className = tabs[i].className.replace(" active", "");
+    tabs[n].className += " active";
 }
 
 function registerListeners() {
@@ -186,16 +207,44 @@ function registerListeners() {
         reader.readAsDataURL(file);
     });
 
-    document.getElementById('save-statistic').addEventListener('click', function (e) {
+    document.getElementById('save-stat').addEventListener('click', function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
 
         // Get key-value pair
         const nameElem = document.getElementById('stat-name');
         const valueElem = document.getElementById('stat-value');
+        const previewElem = document.getElementById('preview-stat');
 
         // Persist it
         playerInfo.statistics[nameElem.value.trim()] = valueElem.value.trim()
 
         // Clear fields for new entries
+        nameElem.value = '';
+        valueElem.value = '';
+        previewElem.value = Object.keys(playerInfo.statistics)
+            .map(key => key + '=' + playerInfo.statistics[key])
+            .join(', ');
+    });
+
+    document.getElementById('clear-all-stats').addEventListener('click', function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Get key-value pair
+        const nameElem = document.getElementById('stat-name');
+        const valueElem = document.getElementById('stat-value');
+        const previewElem = document.getElementById('preview-stat');
+
+        // Persist it
+        playerInfo.statistics = {};
+
+        // Clear fields for new entries
+        nameElem.value = '';
+        valueElem.value = '';
+        previewElem.value = '';
     });
 }
 
