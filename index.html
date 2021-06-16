@@ -93,7 +93,6 @@
         <div id="bio-2"></div>
         <div id="bio-3"></div>
     </div>
-    <div class="source">Source <a href="https://www.stsitsipas.com/bio/">https://www.stsitsipas.com/bio/</a></div>
 </div>
 
 <!-- Statistics -->
@@ -108,6 +107,7 @@
 <hr>
 <div id="activity">
     <h2 id="btn">Tournament Titles</h2>
+    <button class="filter-button" id="apply-filter-tournament">Apply Filters on Table</button>
     <div id="activity-table-wrapper">
         <table id="activity-table">
         </table>
@@ -118,6 +118,7 @@
 <hr>
 <div id="evolution">
     <h2>Ranking Evolution</h2>
+    <button class="filter-button" id="apply-filter-evolution">Apply Filters on Table</button>
     <table id="evolution-table">
     </table>
 </div>
@@ -136,6 +137,34 @@
 </div>
 
 <div id="install">A2HS</div>
+
+<!-- Modal Dialog-->
+<div>
+    <ul>
+        <li id="tournamentFilterModal" class="modal">
+            <div>
+                <h3>Select Filter for Tournaments data </h3>
+                <div id="currentYear2" onclick="">This Year Only</div>
+                <div id="lessThan30">With less than 30 Participants</div>
+                <div id="clear2">Reset all Filters</div>
+                <div id="cancel2">Cancel</div>
+            </div>
+        </li>
+    </ul>
+    <ul>
+        <li id="evolutionFilterModal" class="modal">
+            <div>
+                <h3>Select Filter for Ranking Evolution data</h3>
+                <div id="currentYear" onclick="">This Year Only</div>
+                <div id="year2017">Year 2017</div>
+                <div id="moreThan20">Develop more than 20 positions</div>
+                <div id="negative">Negative Development</div>
+                <div id="clear">Reset all Filters</div>
+                <div id="cancel">Cancel</div>
+            </div>
+        </li>
+    </ul>
+</div>
 
 </body>
 

@@ -428,16 +428,57 @@ div.progress {
   background: #3879D9;
 }
 
-.resetButton {
+.resetButton, .filter-button {
   border-radius: 10px;
   background-color: #36304a;
   color: white;
   padding: 15px 25px;
 }
 
-.resetButton:hover {
+.filter-button {
+  margin-bottom: 10px;
+}
+
+.resetButton:hover, .filter-button:hover {
   background-color: #7fb1bf;
   font-style: italic;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  background-color: rgba(80,80,80,0.5);
+  display: none;
+}
+
+.modal h3 {
+  text-align: center;
+}
+
+.modal > div {
+  width: 290px;
+  margin: 10px auto 0 auto;
+  padding: 5px;
+  border: 1px solid rgb(150,150,150);
+  border-radius: 5px;
+  background-color: rgb(250,250,250);
+}
+
+.modal > div > div, .button {
+  margin: 10px auto;
+  padding: 3px;
+  max-width: 230px;
+  background-color: rgb(230,230,230);
+}
+
+.modal > div > div:hover, .button:hover {
+  cursor: pointer;
+  background-color: rgb(200,200,200);
 }
 
 @media only screen and (max-width: 1320px) {

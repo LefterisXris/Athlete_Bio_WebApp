@@ -218,7 +218,8 @@ const activitiesPreviewData = [];
  */
 function prepareActivitiesPreviewData() {
     // retrieve tournaments meta-data from localStorage
-    db().tournamentsMeta.forEach(entry => activitiesPreviewData.push(entry));
+    if (activitiesPreviewData.length === 0)
+        db().tournamentsMeta.forEach(entry => activitiesPreviewData.push(entry));
 
     if (activitiesDataArray.length !== activitiesPreviewData.length) {
         alert('A mismatch identified on Activities data. Render might fail');
@@ -288,14 +289,74 @@ function populateActivitiesTable() {
         popActivityData(activitiesTable);
     }, false));
 
+    // add filters handler
+    const applyFilterFunc = function applyFilter(e, filter) {
+        // dispose the modal
+        document.getElementById('tournamentFilterModal').style.display = 'none';
+        // reset the data
+        activitiesDataArray.length = 0
+        origData.forEach(dt => activitiesDataArray.push(dt));
+        prepareActivitiesPreviewData();
+        activitiesTable.querySelector('tbody').remove();
+
+        // set the filter
+        let filtersStr = activitiesTable.getAttribute('filters');
+        if (filtersStr == null)
+            filtersStr = '';
+        const filters = filtersStr.split(',');
+        if (filter != null) {
+            filters.push(filter);
+            activitiesTable.setAttribute('filters', filters.join(','));
+        } else {
+            activitiesTable.removeAttribute('filters');
+        }
+
+        // re-render
+        popActivityData(activitiesTable);
+        if (filter != null)
+            document.getElementById('apply-filter-tournament').innerText = 'Filter: ' + document.getElementById(filter).innerText;
+        else
+            document.getElementById('apply-filter-tournament').innerText = 'Apply Filters on Table';
+    };
+    document.getElementById('currentYear2').addEventListener('click', function (e) {
+        applyFilterFunc(e, 'currentYear2');
+    });
+    document.getElementById('lessThan30').addEventListener('click', function applyFilter1(e, x) {
+        applyFilterFunc(e, 'lessThan30');
+    });
+    document.getElementById('clear2').addEventListener('click', function applyFilter1(e) {
+        applyFilterFunc(e, null);
+    });
+    document.getElementById('cancel2').addEventListener('click', function cancelModal(e) {
+        document.getElementById('tournamentFilterModal').style.display = 'none';
+    });
+
     // Populate data
     prepareActivitiesPreviewData();
     popActivityData(activitiesTable);
 }
 
-function popActivityData(activitiesTable) {
+function popActivityData(activitiesTable,) {
     const activitiesBody = document.createElement('tbody');
+    const filters = activitiesTable.getAttribute('filters');
     for (let i = 0; i < activitiesDataArray.length; i++) {
+        if (filters != null && filters !== '') {
+            let shouldSkip = false;
+            filters.split(',').forEach(filter => {
+                switch (filter) {
+                    case 'currentYear2':
+                        if (!activitiesDataArray[i][1].includes(new Date().getFullYear() + ''))
+                            shouldSkip = true;
+                        break;
+                    case 'lessThan30':
+                        if (parseInt(activitiesDataArray[i][2]) > 30)
+                            shouldSkip = true;
+                        break;
+                }
+            });
+            if (shouldSkip)
+                continue;
+        }
         const row = createTableDataRow(activitiesDataArray[i])
         activitiesBody.appendChild(row);
     }
@@ -395,6 +456,55 @@ function populateEvolutionTable() {
         popEvolutionData(evolutionTable);
     }, false));
 
+    // add filters handler
+    const applyFilterFunc = function applyFilter(e, filter) {
+        // dispose the modal
+        document.getElementById('evolutionFilterModal').style.display = 'none';
+        // reset the data
+        evolutionDataArray.length = 0
+        origData.forEach(dt => evolutionDataArray.push(dt));
+        prepareEvolutionProgressData();
+        evolutionTable.querySelector('tbody').remove();
+
+        // set the filter
+        let filtersStr = evolutionTable.getAttribute('filters');
+        if (filtersStr == null)
+            filtersStr = '';
+        const filters = filtersStr.split(',');
+        if (filter != null) {
+            filters.push(filter);
+            evolutionTable.setAttribute('filters', filters.join(','));
+        } else {
+            evolutionTable.removeAttribute('filters');
+        }
+
+        // re-render
+        popEvolutionData(evolutionTable);
+        if (filter != null)
+            document.getElementById('apply-filter-evolution').innerText = 'Filter: ' + document.getElementById(filter).innerText;
+        else
+            document.getElementById('apply-filter-evolution').innerText = 'Apply Filters on Table';
+    };
+
+    document.getElementById('currentYear').addEventListener('click', function applyFilter1(e) {
+        applyFilterFunc(e, 'currentYear');
+    });
+    document.getElementById('year2017').addEventListener('click', function applyFilter2(e) {
+        applyFilterFunc(e, 'year2017');
+    });
+    document.getElementById('moreThan20').addEventListener('click', function applyFilter3(e) {
+        applyFilterFunc(e, 'moreThan20');
+    });
+    document.getElementById('negative').addEventListener('click', function applyFilter3(e) {
+        applyFilterFunc(e, 'negative');
+    });
+    document.getElementById('clear').addEventListener('click', function clearFilter(e) {
+        applyFilterFunc(e, null);
+    });
+    document.getElementById('cancel').addEventListener('click', function cancelModal(e) {
+        document.getElementById('evolutionFilterModal').style.display = 'none';
+    });
+
     // Populate data
     prepareEvolutionProgressData();
     popEvolutionData(evolutionTable);
@@ -402,7 +512,43 @@ function populateEvolutionTable() {
 
 function popEvolutionData(evolutionTable) {
     const evolutionBody = document.createElement('tbody');
+    const filters = evolutionTable.getAttribute('filters');
     for (let i = 0; i < evolutionDataArray.length; i++) {
+
+        if (filters != null && filters !== '') {
+            let shouldSkip = false;
+            filters.split(',').forEach(filter => {
+                switch (filter) {
+                    case 'year2017':
+                        if (!evolutionDataArray[i][0].startsWith('2017'))
+                            shouldSkip = true;
+                        break;
+                    case 'currentYear':
+                        if (!evolutionDataArray[i][0].startsWith(new Date().getFullYear() + ''))
+                            shouldSkip = true;
+                        break;
+                    case 'moreThan20':
+                        const tmpElem1 = document.createElement('div');
+                        tmpElem1.innerHTML = evolutionDataArray[i][1];
+
+                        if (!tmpElem1.querySelector('div:first-child').classList.contains('up')
+                            || parseInt(tmpElem1.querySelector('div:last-child').innerText
+                                .replace('(+ ', '').replace(')', '')) <= 20) {
+                            shouldSkip = true;
+                        }
+                        break;
+                    case 'negative':
+                        const tmpElem2 = document.createElement('div');
+                        tmpElem2.innerHTML = evolutionDataArray[i][1];
+                        if (!tmpElem2.querySelector('div:first-child').classList.contains('down')) {
+                            shouldSkip = true;
+                        }
+                        break;
+                }
+            });
+            if (shouldSkip)
+                continue;
+        }
         const row = createTableDataRow(evolutionDataArray[i])
         evolutionBody.appendChild(row);
     }
@@ -535,8 +681,11 @@ function prepareShowHideFunctionality() {
     }, false);
 
     document.addEventListener('keydown', function disposeContextMenuOnEsc(e) {
-        if (e.code === 'Escape')
+        if (e.code === 'Escape') {
             clearCtxMenu();
+            document.getElementById('tournamentFilterModal').style.display = 'none';
+            document.getElementById('evolutionFilterModal').style.display = 'none';
+        }
     }, false);
 }
 
@@ -635,6 +784,14 @@ function registerListeners() {
             input.click();
         }
     });
+
+    document.getElementById('apply-filter-tournament').addEventListener('click', function openModal1(e) {
+        document.getElementById('tournamentFilterModal').style.display = 'list-item';
+    });
+
+    document.getElementById('apply-filter-evolution').addEventListener('click', function openModal2(e) {
+        document.getElementById('evolutionFilterModal').style.display = 'list-item';
+    });
 }
 
 // Main Execution
@@ -668,18 +825,18 @@ Done in 3rd iteration:
  - Dynamic data loading (check for json import/export)
     - Start with a blank page
     - Prompt to insert athlete's name, pic, country-pic, height, weight, birth, rank, win rate and game style
-    - Prompt to add text for bio (should be able to load from txt file)
-    - Prompt to add statistics data
+    - Prompt to add text for bio (html text is supported)
+    - Prompt to add statistics data (key-value entries)
     - Prompt to add tournament titles data (+ the hover image)
         - Maybe implement dynamic tables? So to add any column?
     - Prompt to add ranking evolution data
     - Prompt to add links for fb, twitter, youtube and insta (optional all)
  - Local storage (all the above data)
+ - Filtering options (through a button that opens a modal)
+    - Filter tournaments with n of Participants, current year's etc
+    - Filter on ranking: show negative, current year's etc
+    - Reset filters
+    - Cancel/dispose modal)
+    - Filtering can be combined with sorting and hiding functionality
  */
 
-/*
-TODO in 3rd iteration:
- - Filtering options
-    - Filter tournaments in Balkan
-    - Filter on ranking: show neutral/negative/positive progress quarters
- */
